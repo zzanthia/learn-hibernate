@@ -10,8 +10,18 @@ public class UserDetails {
     @GeneratedValue
     private int userId;
     private String userName;
+
     @Embedded
-    private Address address;
+    @AttributeOverrides({
+            @AttributeOverride(name = "street", column = @Column(name = "HOME_STREET_NAME")),
+            @AttributeOverride(name = "city", column = @Column(name = "HOME_CITY_NAME")),
+            @AttributeOverride(name = "state", column = @Column(name = "HOME_STATE_NAME")),
+            @AttributeOverride(name = "pincode", column = @Column(name = "HOME_PIN_CODE"))
+    })
+    private Address homeAddress;
+
+    @Embedded
+    private Address officeAddress;
 
     public int getUserId() {
         return userId;
@@ -29,12 +39,19 @@ public class UserDetails {
         this.userName = userName;
     }
 
-    public Address getAddress() {
-        return address;
+    public Address getHomeAddress() {
+        return homeAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
     }
 
+    public Address getOfficeAddress() {
+        return officeAddress;
+    }
+
+    public void setOfficeAddress(Address officeAddress) {
+        this.officeAddress = officeAddress;
+    }
 }
