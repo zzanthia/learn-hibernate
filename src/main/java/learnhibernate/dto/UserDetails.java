@@ -1,27 +1,20 @@
 package learnhibernate.dto;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "USER_DETAILS")
 public class UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String userName;
+    @ElementCollection
+    private Set<Address> listOfAddresses = new HashSet<>();
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "street", column = @Column(name = "HOME_STREET_NAME")),
-            @AttributeOverride(name = "city", column = @Column(name = "HOME_CITY_NAME")),
-            @AttributeOverride(name = "state", column = @Column(name = "HOME_STATE_NAME")),
-            @AttributeOverride(name = "pincode", column = @Column(name = "HOME_PIN_CODE"))
-    })
-    private Address homeAddress;
-
-    @Embedded
-    private Address officeAddress;
 
     public int getUserId() {
         return userId;
@@ -39,19 +32,20 @@ public class UserDetails {
         this.userName = userName;
     }
 
-    public Address getHomeAddress() {
-        return homeAddress;
+    public Set<Address> getListOfAddresses() {
+        return listOfAddresses;
     }
 
-    public void setHomeAddress(Address homeAddress) {
-        this.homeAddress = homeAddress;
+    public void setListOfAddresses(Set<Address> listOfAddresses) {
+        this.listOfAddresses = listOfAddresses;
     }
 
-    public Address getOfficeAddress() {
-        return officeAddress;
-    }
-
-    public void setOfficeAddress(Address officeAddress) {
-        this.officeAddress = officeAddress;
+    @Override
+    public String toString() {
+        return "UserDetails{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", listOfAddresses=" + listOfAddresses +
+                '}';
     }
 }
