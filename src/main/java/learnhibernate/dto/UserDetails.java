@@ -1,6 +1,12 @@
 package learnhibernate.dto;
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,8 +19,11 @@ public class UserDetails {
     private int userId;
     private String userName;
     @ElementCollection
-    private Set<Address> listOfAddresses = new HashSet<>();
-
+    @JoinTable(name = "USER_ADDRESS",
+            joinColumns = @JoinColumn(name = "USER_ID"))
+    @GenericGenerator(name="sequence_gen",strategy="sequence")
+    @CollectionId(columns = {@Column(name = "ADDRESS_ID")}, type = @Type(type = "long"), generator = "sequence_gen")
+    private Collection<Address> listOfAddresses = new ArrayList<>();
 
     public int getUserId() {
         return userId;
@@ -32,11 +41,11 @@ public class UserDetails {
         this.userName = userName;
     }
 
-    public Set<Address> getListOfAddresses() {
+    public Collection<Address> getListOfAddresses() {
         return listOfAddresses;
     }
 
-    public void setListOfAddresses(Set<Address> listOfAddresses) {
+    public void setListOfAddresses(Collection<Address> listOfAddresses) {
         this.listOfAddresses = listOfAddresses;
     }
 

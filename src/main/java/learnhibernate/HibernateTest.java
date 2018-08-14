@@ -27,11 +27,19 @@ public class HibernateTest {
         user.getListOfAddresses().add(addr);
         user.getListOfAddresses().add(addr2);
 
+        //---
+
+//        UserDetails user2 = new UserDetails();
+//        user2.setUserName("Second User");
+//        user2.getListOfAddresses().add(addr);
+//        user2.getListOfAddresses().add(addr2);
+
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
 
         session.beginTransaction();
         session.save(user);
+//        session.save(user2);
         session.getTransaction().commit();
 
         session.close();
