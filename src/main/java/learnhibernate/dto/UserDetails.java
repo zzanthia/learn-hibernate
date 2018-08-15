@@ -1,6 +1,8 @@
 package learnhibernate.dto;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "USER_DETAILS")
@@ -10,9 +12,11 @@ public class UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String userName;
-    @OneToOne
-    @JoinColumn(name = "VEHICLE_ID")
-    private Vehicle vehicle;
+    @OneToMany
+    @JoinTable(name = "USER_VEHICLE",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID"))
+    private Collection<Vehicle> vehicles = new ArrayList<>();
 
     public int getUserId() {
         return userId;
@@ -30,11 +34,11 @@ public class UserDetails {
         this.userName = userName;
     }
 
-    public Vehicle getVehicle() {
-        return vehicle;
+    public Collection<Vehicle> getVehicles() {
+        return vehicles;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void setVehicles(Collection<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 }
