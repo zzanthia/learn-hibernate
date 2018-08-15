@@ -18,11 +18,9 @@ public class UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String userName;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_ADDRESS",
             joinColumns = @JoinColumn(name = "USER_ID"))
-    @GenericGenerator(name="sequence_gen",strategy="sequence")
-    @CollectionId(columns = {@Column(name = "ADDRESS_ID")}, type = @Type(type = "long"), generator = "sequence_gen")
     private Collection<Address> listOfAddresses = new ArrayList<>();
 
     public int getUserId() {
@@ -49,12 +47,12 @@ public class UserDetails {
         this.listOfAddresses = listOfAddresses;
     }
 
-    @Override
-    public String toString() {
-        return "UserDetails{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", listOfAddresses=" + listOfAddresses +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "UserDetails{" +
+//                "userId=" + userId +
+//                ", userName='" + userName + '\'' +
+//                ", listOfAddresses=" + listOfAddresses +
+//                '}';
+//    }
 }
