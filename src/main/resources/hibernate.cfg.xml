@@ -16,5 +16,6 @@
         <property name="hibernate.hbm2ddl.auto">create</property>
 
         <mapping class="learnhibernate.dto.UserDetails"/>
+        <mapping class="learnhibernate.dto.Vehicle"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,14 +1,6 @@
 package learnhibernate.dto;
 
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "USER_DETAILS")
@@ -18,10 +10,9 @@ public class UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String userName;
-    @ElementCollection(fetch = FetchType.EAGER)
-    @JoinTable(name = "USER_ADDRESS",
-            joinColumns = @JoinColumn(name = "USER_ID"))
-    private Collection<Address> listOfAddresses = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name = "VEHICLE_ID")
+    private Vehicle vehicle;
 
     public int getUserId() {
         return userId;
@@ -39,20 +30,11 @@ public class UserDetails {
         this.userName = userName;
     }
 
-    public Collection<Address> getListOfAddresses() {
-        return listOfAddresses;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setListOfAddresses(Collection<Address> listOfAddresses) {
-        this.listOfAddresses = listOfAddresses;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
-
-//    @Override
-//    public String toString() {
-//        return "UserDetails{" +
-//                "userId=" + userId +
-//                ", userName='" + userName + '\'' +
-//                ", listOfAddresses=" + listOfAddresses +
-//                '}';
-//    }
 }
