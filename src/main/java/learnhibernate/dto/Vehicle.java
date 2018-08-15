@@ -1,9 +1,6 @@
 package learnhibernate.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Vehicle {
@@ -13,8 +10,8 @@ public class Vehicle {
     private int vehicleId;
     private String vehicleName;
 
-    //this ManyToOne will create additional column USER_USERID in VEHICLE table
     @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private UserDetails user;
 
     public int getVehicleId() {

@@ -12,10 +12,7 @@ public class UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String userName;
-    @OneToMany
-    @JoinTable(name = "USER_VEHICLE",
-            joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID"))
+    @OneToMany(mappedBy = "user")
     private Collection<Vehicle> vehicles = new ArrayList<>();
 
     public int getUserId() {
